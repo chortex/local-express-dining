@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Local</title>
+<meta charset="utf-8">
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="vendor/reset.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="./favicon.ico">
+</head>
+<body class="multiple-scenes ">
+
+<div id="pano"></div>
+
+<div id="sceneList">
+  <ul class="scenes">
+    
+      <a href="javascript:void(0)" class="scene" data-id="0-checkout">
+        <li class="text">CHECKOUT</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="1-lounge">
+        <li class="text">LOUNGE</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="2-market">
+        <li class="text">MARKET</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="3-game-corner">
+        <li class="text">GAME CORNER</li>
+      </a>
+    
+  </ul>
+</div>
+
+<div id="titleBar">
+  <a href="./" id="logo">
+    <img src="./img/Local-Logo-BLK.png" alt="Logo">
+  </a>
+  <!-- <h1 class="sceneName"></h1> -->
+</div>
+
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png">
+  <img class="icon on" src="img/pause.png">
+</a>
+
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="img/fullscreen.png">
+  <img class="icon on" src="img/windowed.png">
+</a>
+
+<a href="./" id="sceneListToggle">
+  <!-- <img class="icon off" src="img/expand.png"> -->
+  <img class="icon on" src="img/collapse.png">
+</a>
+
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="img/up.png">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="img/down.png">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="img/left.png">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="img/right.png">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="img/plus.png">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="img/minus.png">
+</a>
+
+<script src="vendor/screenfull.min.js" ></script>
+<script src="vendor/bowser.min.js" ></script>
+<script src="vendor/marzipano.js" ></script>
+
+<script src="data.js"></script>
+<script src="index.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+
+    navigator.serviceWorker
+    .register('./service-worker.js', { scope: './' })
+    .then(function(registration) {
+      console.log("Service Worker Registered");
+    })
+    .catch(function(err) {
+      console.log("Service Worker Failed to Register", err);
+  })
+
+  }
+
+
+
+  // Function to perform HTTP request
+  var get = function(url) {
+  return new Promise(function(resolve, reject) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          var result = xhr.responseText
+          result = JSON.parse(result);
+          resolve(result);
+      } else {
+          reject(xhr);
+        }
+      }
+    };
+    
+    xhr.open("GET", url, true);
+    xhr.send();
+
+  }); 
+  };
+
+
+</script>
+
+</body>
+</html>
